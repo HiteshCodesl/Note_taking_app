@@ -1,0 +1,36 @@
+model User {
+  id       String    @id @default(cuid())
+  name     String
+  email    String    @unique
+  password String
+  Note     Notes[]
+  Session  Session[]
+}
+
+model Notes {
+  noteId    String      @id @default(cuid())
+  title     String
+  completed Boolean
+  tags      String?
+  createdAt DateTime  @default(now())
+  userId    String
+  adminId   User     @relation(fields: [userId], references: [id])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id])
+}
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
