@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 📝 NoteNest – A Full-Stack Note-Taking App
 
-## Getting Started
+## 🔧 Tech Stack
+- Next.js (App Router)
+- PostgreSQL + Prisma ORM
+- Tailwind CSS + shadcn/ui
+- Auth.js for authentication
+- Deployed on Vercel
 
-First, run the development server:
+### 1. **Authentication**
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Users must be able to:
+    - ~~Register an account~~
+    - L~~og in securely~~
+    - Log out
+- Protected routes: Only authenticated users can view and manage their notes.
+- No public access to anyone else’s data.
+- ~~Passwords must be hashed and stored securely.~~
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+   
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 2. **Dashboard / Home Page**
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- After logging in, users land on a **dashboard** showing a list of their notes.
+- The latest notes appear on top.
+- Each note should display:
+    - Title
+    - A snippet of content
+    - Last updated time
 
-## Learn More
+### 3. **Creating a New Note**
 
-To learn more about Next.js, take a look at the following resources:
+- From the dashboard, users should be able to click "New Note".
+- It opens a fullscreen or modal editor with:
+    - **Title input**
+    - **Content textarea** or Markdown editor
+- A note can be saved manually or autosaved every X seconds.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 4. **Editing a Note**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Clicking on any note from the dashboard should navigate to an **edit page**.
+- Edits should update the `updatedAt` timestamp.
+- UI should show clear “saving...” feedback or toast confirmation.
 
-## Deploy on Vercel
+### 5. **Deleting Notes**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Each note should have a delete button.
+- Deletion should:
+    - Prompt for confirmation (modal)
+    - Be irreversible
+    - Remove the note from the DB and frontend cache immediately
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 6. **Search Functionality**
+
+- Users can search through notes by:
+    - Title
+    - Content (full-text)
+- Real-time filtering or fuzzy search preferred.
+
+### 7. **Responsive UI**
+
+- App must work beautifully on:
+    - Desktop (large screens)
+    - Tablets
+    - Phones (fully mobile-friendly)
