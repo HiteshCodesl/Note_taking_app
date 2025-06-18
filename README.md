@@ -1,4 +1,5 @@
 # 📝 NoteNest – A Full-Stack Note-Taking App
+Added notes and Build more Productivity
 
 ## 🔧 Tech Stack
 - Next.js (App Router)
