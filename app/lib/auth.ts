@@ -4,7 +4,6 @@ import { compare } from "bcrypt";
 import { prismaClient } from "../../prisma/src/index"
 
 export const authOptions: NextAuthOptions = {
-    session: { strategy: "jwt" },
     providers: [
         CredentialsProvider({
             name: "email",
@@ -32,8 +31,30 @@ export const authOptions: NextAuthOptions = {
 
                 if (!isValidPassword) return null;
 
-                return user;
+                return {
+                    id: user.id,
+                    email: user.email,
+                    name: user.name
+                };
             }
         })
     ],
+    session: {
+        strategy: "jwt"
+    },
+
+    callbacks: {
+    async jwt({ token, user }) {
+      if (user) token.id = user.id; 
+      return token;
+    },
+    async session({ session, token }){
+      if (session.user && token.id) {
+        session.user.id = token.id as string; 
+      }
+      return session;
+    },
+  },
+
+   secret: process.env.NEXTAUTH_SECRET,
 }
